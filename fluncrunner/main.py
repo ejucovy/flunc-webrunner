@@ -23,7 +23,7 @@ class FluncRunner(object):
         if self.search_path:
             args.extend(['-p', self.search_path])
         if defines:
-            args.extend('-D', defines)
+            args.extend(['-D', defines])
 
         args.append(suite)
 
