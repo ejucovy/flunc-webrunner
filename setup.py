@@ -25,5 +25,8 @@ setup(name='fluncrunner',
       # -*- Entry points: -*-
       [paste.app_factory]
       main = fluncrunner.wsgiapp:make_app
+
+      [paste.composite_factory]
+      request_method = fluncrunner.sampleapp:composite_factory
       """,
       )
