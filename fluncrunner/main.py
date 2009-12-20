@@ -16,7 +16,8 @@ class FluncRunner(object):
 
         defines = ''
         for key, val in dict(req.POST).items():
-            defines = "%s=%s," % (key, val)
+            if key and val:
+                defines += "%s=%s," % (key, val)
         defines = defines.strip(',')
 
         args = ['flunc']
@@ -26,6 +27,8 @@ class FluncRunner(object):
             args.extend(['-D', defines])
 
         args.append(suite)
+
+        print args
 
         ret = subprocess.call(args)
         
