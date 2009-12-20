@@ -18,15 +18,16 @@ setup(name='fluncrunner',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
-          'PasteDeploy',
+        'flunc',
+        'PasteDeploy',
+        'WebOb',
       ],
       entry_points="""
       # -*- Entry points: -*-
       [paste.app_factory]
-      main = fluncrunner.wsgiapp:make_app
+      main = fluncrunner.main:app_factory
 
       [paste.composite_factory]
-      request_method = fluncrunner.sampleapp:composite_factory
+      request_method = fluncrunner.request_method:composite_factory
       """,
       )
