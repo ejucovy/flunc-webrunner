@@ -29,5 +29,8 @@ setup(name='fluncrunner',
 
       [paste.composite_factory]
       request_method = fluncrunner.request_method:composite_factory
+
+      [paste.filter_factory]
+      force_html = fluncrunner.force_html:filter_factory
       """,
       )
