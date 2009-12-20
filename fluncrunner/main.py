@@ -40,7 +40,7 @@ class FluncRunner(object):
 
         return Response("Ok" % ret)(environ, start_response)
 
-def make_app(global_conf, search_path=None, **kw):
+def app_factory(global_conf, search_path=None, **kw):
     app = FluncRunner(search_path)
 
     return app
