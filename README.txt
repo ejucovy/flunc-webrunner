@@ -32,3 +32,8 @@ An HTML form will be returned, suitable for POSTing back to the server.
 
 If available, default values (from the test's corresponding .conf) will be
 detailed in the form fields' pre-filled values.
+
+Configuring the server
+======================
+
+This section wants writing.
