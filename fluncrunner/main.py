@@ -6,13 +6,23 @@ import subprocess
 
 
 class FluncRunner(object):
+    """
+    runs flunc tests. use like::
+
+    >>> runner = FluncRunner("/path/to/ftests/")
+    >>> variables = dict(username='lammy', pw='lammyspw')
+    >>> return_code = runner.execute("mysuite", variables)
+    >>> if runner.execute("mysuite", variables, search_path="/other/path/"):
+    ...    print "test failed"
+
+    """
 
     search_path = None
 
     def __init__(self, search_path):
         self.search_path = search_path  # flunc -p option
 
-    def execute_tests(self, suite, search_path=None):
+    def execute_tests(self, suite, vars, search_path=None):
         assert ".." not in suite and "/" not in suite
 
         search_path = search_path or self.search_path
