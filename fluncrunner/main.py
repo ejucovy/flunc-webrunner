@@ -9,12 +9,20 @@ class FluncRunner(object):
     """
     runs flunc tests. use like::
 
+    >>> from fluncrunner.main import FluncRunner
     >>> runner = FluncRunner("/path/to/ftests/")
     >>> variables = dict(username='lammy', pw='lammyspw')
     >>> return_code = runner.execute("mysuite", variables)
     >>> if runner.execute("mysuite", variables, search_path="/other/path/"):
-    ...    print "test failed"
+    ...    print "test failed. browser dump:"
+    ...    print self.error_dump()
+    
+    it is also a wsgi callable. in that context::
 
+     * environ['PATH_INFO'] is the suite to run
+     * request.POST is the variable dict
+     * a successful response is 200 OK with an uninteresting response body
+     * a failure response is 500 Server Error with the browser dump as response body
     """
 
     search_path = None
@@ -47,6 +55,18 @@ class FluncRunner(object):
         ret = subprocess.call(args)
         return ret
 
+    def error_dump(self):
+        """
+        return a dump of the browser html after an error 
+
+        exceptions will pass through if this is called at the wrong time.
+        """
+        # TODO: this should be captured, not saved to filesystem
+        fp = open('err.html')
+        err = fp.read()
+        fp.close()
+        return err    
+
     def __call__(self, environ, start_response):
         req = Request(environ)
 
@@ -56,10 +76,7 @@ class FluncRunner(object):
         ret = self.execute_tests(suite, vars)
         
         if ret:
-            # TODO: this should be captured, not saved to filesystem
-            fp = open('err.html')
-            err = fp.read()
-            fp.close()
+            err = self.error_dump()
             ret = HTTPServerError()
             ret.body = err
             return ret(environ, start_response)
