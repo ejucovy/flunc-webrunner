@@ -3,8 +3,6 @@ from webob.exc import *
 
 import subprocess
 
-
-
 class FluncRunner(object):
     """
     runs flunc tests. use like::
@@ -16,18 +14,11 @@ class FluncRunner(object):
     >>> if runner.execute("mysuite", variables, search_path="/other/path/"):
     ...    print "test failed. browser dump:"
     ...    print self.error_dump()
-    
-    it is also a wsgi callable. in that context::
-
-     * environ['PATH_INFO'] is the suite to run
-     * request.POST is the variable dict
-     * a successful response is 200 OK with an uninteresting response body
-     * a failure response is 500 Server Error with the browser dump as response body
     """
 
     search_path = None
 
-    def __init__(self, search_path):
+    def __init__(self, search_path=None):
         self.search_path = search_path  # flunc -p option
 
     def execute_tests(self, suite, vars, search_path=None):
@@ -67,11 +58,29 @@ class FluncRunner(object):
         fp.close()
         return err    
 
+class FluncWebRunner(FluncRunner)
+    """
+    a wsgi callable incarnation of FluncRunner. in this context::
+
+     * environ['PATH_INFO'] is the suite to run
+     * request.POST is the variable dict
+     * a successful response is 200 OK with an uninteresting response body
+     * a failure response is 500 Server Error with the browser dump as response body
+
+    in theory all these are trivially redefinable by subclassing.
+    """
+
+    def suite(self, req):
+        return req.path_info.strip('/')
+
+    def vars(self, req):
+        return dict(req.POST)
+
     def __call__(self, environ, start_response):
         req = Request(environ)
 
-        suite = req.path_info.strip('/')
-        vars = dict(request.POST)
+        suite = self.suite(req)
+        vars = self.vars(req)
 
         ret = self.execute_tests(suite, vars)
         
