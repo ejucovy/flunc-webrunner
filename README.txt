@@ -94,3 +94,17 @@ Generating flunc test forms
 ===========================
 
 This section wants writing.
+
+twill.js
+========
+
+There's http://bitbucket.org/ianb/twilljs/ which executes simple
+twill scripts (no variables, no suites)
+
+A similar API could transform flunc tests into twill scripts.
+Somehow that feels more friendly to me than variables in twill.js.
+
+A server would be responsible for interpolating variables provided
+by the requesting client and serving a "standard" twill script.
+
+Flunc suites could also be compiled down to twill scripts this way.
