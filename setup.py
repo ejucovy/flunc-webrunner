@@ -21,6 +21,7 @@ setup(name='fluncrunner',
         'flunc',
         'PasteDeploy',
         'WebOb',
+        'pastables',
       ],
       entry_points="""
       # -*- Entry points: -*-

@@ -58,7 +58,7 @@ class FluncRunner(object):
         fp.close()
         return err    
 
-class FluncWebRunner(FluncRunner)
+class FluncWebRunner(FluncRunner):
     """
     a wsgi callable incarnation of FluncRunner. in this context::
 
