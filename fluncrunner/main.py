@@ -93,6 +93,6 @@ class FluncWebRunner(FluncRunner):
         return Response("Ok" % ret)(environ, start_response)
 
 def app_factory(global_conf, search_path=None, **kw):
-    app = FluncRunner(search_path)
+    app = FluncWebRunner(search_path)
 
     return app
