@@ -5,9 +5,8 @@ version = '0.0'
 
 setup(name='fluncrunner',
       version=version,
-      description="",
-      long_description="""\
-""",
+      description="Run flunc tests through the web",
+      long_description=open("README.txt").read(),
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='',
       author='',
