@@ -1,4 +1,4 @@
-flunc-webrunner runs flunc tests (suites of twill scripts with variables) through the web.
+fluncrunner runs flunc tests (suites of twill scripts with variables) through the web.
 
 The API
 =======
@@ -36,7 +36,7 @@ detailed in the form fields' pre-filled values.
 Configuring the server
 ======================
 
-The flunc-webrunner server uses Paste Deploy for configuration.
+The fluncrunner server uses Paste Deploy for configuration.
 
 A sample configuration, suitable for forking, can be found in
 
@@ -86,7 +86,7 @@ sets Content-type: text/html on all responses::
  [filter:force_html]
  use = egg:fluncrunner#force_html
 
-If you are not serving flunc-webrunner from Paste, you can configure
+If you are not serving fluncrunner from Paste, you can configure
 this WSGI pipeline in code. You can find the needed WSGI factories
 in `fluncrunner`'s `main.py`, `force_html.py` and `request_method.py`.
 
